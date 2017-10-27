@@ -9,7 +9,7 @@ echo "Extracking"
 tar -xJf Python-3.6.3.tar.xz
 echo "Extracking Done"
 cd Python-3.6.3
-./configure
+sudo ./configure
 sudo make 
 sudo make altinstall 
 which python3 && python3 -V
