@@ -1,1 +1,2 @@
 # Script
+`${package.json.version}`
