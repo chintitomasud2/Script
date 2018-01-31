@@ -68,6 +68,12 @@ zone "$masud" IN {
 };
 
 
+systemctl start named
+systemctl enable named
+
+
+
+
 
 
 EOF
@@ -77,6 +83,9 @@ chgrp named /var/named/${domainname}.fz
 chgrp named /var/named/${domainname}.rz
 
 sed "/listen-on port/c  listen-on port 53 {$ipaddress; };" /etc/named.conf > /etc/named/hoice.conf
+
+firewall-cmd --permanent --add-service=dns
+firewall-cmd --reload
 
 
 
