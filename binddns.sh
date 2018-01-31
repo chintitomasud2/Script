@@ -1,7 +1,13 @@
 yum install bind* -y
-read -p "Enter the ip address :" ipaddress
 
-read -p "Enter your domain.name:" domainname
+RESET="\033[0m"
+BOLD="\033[1m"
+YELLOW="\033[34;5;11m"
+read -p "$(echo -e $BOLD$YELLOW"Enter your ip address :"$RESET)" ipaddress
+
+#read -p "Enter the ip address :" ipaddress
+read -p "$(echo -e $BOLD$YELLOW"Enter your DomainName "$RESET)" domainname
+#read -p "Enter your domain.name:" domainname
 masud=$(echo $ipaddress | awk -F. '{print $3"."$2"."$1".in-addr.arpa"}')
 
 cat <<EOF >> /var/named/${domainname}.fz
