@@ -14,3 +14,8 @@ sudo ./configure
 sudo make 
 sudo make altinstall 
 which python3 && python3 -V
+
+cd ~/Downloads
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+sudo python get-pip.py
+

@@ -4,9 +4,10 @@ read -p "Enter the ip address :" ipaddress
 read -p "Enter your domain.name:" domainname
 masud=$(echo $ipaddress | awk -F. '{print $3"."$2"."$1".in-addr.arpa"}')
 
-cat <<EOF >> named/${domainname}.fz
+cat <<EOF >> /var/named/${domainname}.fz
 
-N SOA	@ rname.invalid. (
+$TTL 1D
+@       IN SOA  @ rname.invalid. (
 					0	; serial
 					1D	; refresh
 					1H	; retry
@@ -19,7 +20,7 @@ dns1    IN A     $ipaddress
 
 EOF
 
-cat <<EOF >>named/${domainname}.rz
+cat <<EOF >>/var/named/${domainname}.rz
 $TTL 1D
 @	IN SOA	@ rname.invalid. (
 					0	; serial
@@ -34,7 +35,7 @@ $TTL 1D
 
 EOF
 
-cat <<EOF >>rfc.zones
+cat <<EOF >>/etc/named.rfc1912.zones
 zone $domainname IN {
         type master;
         file "${domainname}.fz";
@@ -43,7 +44,7 @@ zone $domainname IN {
 EOF
 
 
-cat <<EOF >>rfc.zones
+cat <<EOF >>/etc/named.rfc1912.zones
 
 zone "$masud" IN {
         type master;
@@ -53,5 +54,5 @@ zone "$masud" IN {
 
 
 EOF
-chgrp named named/${domainname}.fz
-chgrp named named/${domainname}.rz
+chgrp named /var/named/${domainname}.fz
+chgrp named /var/named/${domainname}.rz
